@@ -1,5 +1,6 @@
 package com.example.FinalYearProject.Online.Coding.Platform.web;
 
+import ModelResponse.UserSubmissionResponse;
 import com.example.FinalYearProject.Online.Coding.Platform.domain.Problems;
 import com.example.FinalYearProject.Online.Coding.Platform.service.ProblemsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class ProblemsController {
     }
 
     @PostMapping(path = "/problems/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> getSubmission(@RequestBody String lang,@RequestBody String answer, @PathVariable("id") int id) throws IOException {
+    public ResponseEntity<String> getSubmission(@RequestBody UserSubmissionResponse userSubmissionResponse, @PathVariable("id") int id) throws IOException {
         // Make a file tempid.lang to store the code submitted by user
         String filename = "temp";
-        filename += "." +lang;
+        filename += "." +userSubmissionResponse.getLanguage();
         File ansfile = new File("C:\\Users\\ASUS\\IdeaProjects\\Online-Coding-Platform\\UserAnswers\\"+filename);
         FileWriter write = new FileWriter(ansfile);
-        write.write(answer);
+        write.write(userSubmissionResponse.getAnswer());
         write.write(System.lineSeparator());
         write.flush();
         write.close();
@@ -44,7 +45,7 @@ public class ProblemsController {
         FileWriter writer = new FileWriter(batfile);
         writer.write("@ echo off");
         writer.write(System.lineSeparator());
-        if (lang.equalsIgnoreCase("java")) {
+        if (userSubmissionResponse.getLanguage().equalsIgnoreCase("java")) {
             writer.write("javac temp.java");
             writer.write(System.lineSeparator());
             writer.write("java Solution < input" + id + ".txt");
