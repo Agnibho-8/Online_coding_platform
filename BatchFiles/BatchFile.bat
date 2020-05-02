@@ -1,4 +1,3 @@
 @ echo off
-javac temp.java
-java Solution < input1.txt
-pause
+javac Solution.java
+java Solution < input2.txt
