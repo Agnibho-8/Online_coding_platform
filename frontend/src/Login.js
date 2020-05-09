@@ -7,7 +7,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 var apiBaseUrl = "http://localhost:8080";
 import axios from 'axios';
-import UploadPage from './HomePage';
+import HomePage from './HomePage'
 class Login extends Component {
   constructor(props){
     super(props);
@@ -33,6 +33,7 @@ class Login extends Component {
        </MuiThemeProvider>
     )
     this.state={
+      isLoggedIn : false,
       username:'',
       password:'',
       // menuValue:1,
@@ -105,6 +106,11 @@ class Login extends Component {
    .then(function (response) {
      console.log(response);
      if(response.data == 'yes'){
+      this.setState({
+        isLoggedIn : true
+      })
+
+
        console.log("Login successfull");
       //  var uploadScreen=[];
       //  uploadScreen.push(<UploadPage appContext={self.props.appContext}/>)
@@ -115,6 +121,9 @@ class Login extends Component {
     //    alert(response.data.success)
     //  }
      else{
+       this.setState({
+         isLoggedIn : false
+       })
        console.log("incorrect username or password");
        alert("incorrect username or password");
      }
@@ -194,7 +203,7 @@ class Login extends Component {
         </DropDownMenu>
         </div>
         </MuiThemeProvider> */}
-        {this.state.loginComponent}
+        {this.state.isLoggedIn ? <HomePage/>:this.state.loginComponent}
       </div>
     );
   }
