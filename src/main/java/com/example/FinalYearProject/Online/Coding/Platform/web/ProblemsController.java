@@ -19,21 +19,28 @@ public class ProblemsController {
     @Autowired
     ProblemsService service;
 
+    @CrossOrigin
     @GetMapping("/problems")
     public ResponseEntity<List<Problems>> getAllProblems() {
         return new ResponseEntity<List<Problems>>(service.findAll(),HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping(path = "/problems/{id}")
     public ResponseEntity<Optional<Problems>> findProblemById(@PathVariable("id") int id) {
         return new ResponseEntity<>(service.findById(id),HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PostMapping(path = "/problems/{id}")
     public ResponseEntity<String> getSubmission(@RequestBody UserSubmissionRequest userSubmissionRequest, @PathVariable("id") int id) throws IOException {
         // Make a file tempid.lang to store the code submitted by user
                 String filename = "Solution";
-                filename += "." + userSubmissionRequest.getLanguage();
+                String extension = userSubmissionRequest.getLanguage();
+                if(extension.equalsIgnoreCase("python")){
+                    extension = "py";
+                }
+                filename += "." + extension;
                 String filePath = new File(".").getCanonicalPath();
                 File ansfile = new File(filePath + "/BatchFiles/" + filename);
                 FileWriter write = new FileWriter(ansfile, false);
@@ -51,6 +58,8 @@ public class ProblemsController {
                     writer.write(System.lineSeparator());
                     writer.write("java Solution < input" + id + ".txt");
                     writer.write(System.lineSeparator());
+                }else if(userSubmissionRequest.getLanguage().equalsIgnoreCase("python")){
+                    writer.write("python Solution.py < input"+ id + ".txt");
                 }
                 //TODO add 2 else if for C and python
                 writer.flush();
@@ -83,7 +92,7 @@ public class ProblemsController {
                 return new ResponseEntity<>("Congratulations!",HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>("Wrong!",HttpStatus.OK);
+            return new ResponseEntity<>("Wrong!"+"Your Output"+userOutput+"Expected Output"+expectedOutput,HttpStatus.OK);
         }
     }
 }

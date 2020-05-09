@@ -1,3 +1,2 @@
 @ echo off
-javac Solution.java
-java Solution < input2.txt
+python Solution.py < input2.txt
