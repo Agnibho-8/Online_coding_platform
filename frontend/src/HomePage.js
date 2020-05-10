@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function HomePage() {
-  const url = 'https://www.shutterstock.com/image-vector/online-learning-programming-coding-on-different-1378143746';
-  return (
-    <img src={url} style={{width: 650}} alt='Image of Golden Gate Bridge' />
-  );
+class HomePage extends Component{
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return(
+      <div>
+        <h1>HOME</h1>
+        <img src="https://cdn1.vectorstock.com/i/1000x1000/85/30/coding-neon-sign-pc-monitor-with-programming-neon-vector-22428530.jpg"/>
+      </div>
+    )
+  }
 }
 
 export default HomePage;

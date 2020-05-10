@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
 import './App.css';
 import LoginScreen from './Loginscreen';
+import ReactDOM from 'react';
+import {BrowserRouter as Router, NavLink, Route} from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
+import HomePage from './HomePage';
+import Start from './Start';
+import { green100 } from 'material-ui/styles/colors';
+import { red100 } from 'material-ui/styles/colors';
 class App extends Component {
   constructor(props){
     super(props);
-    this.state={
-      loginPage:[],
-      uploadScreen:[]
-    }
+    // this.state={
+    //   loginPage:[],
+    //   uploadScreen:[]
+    // }
   }
-  componentWillMount(){
-    var loginPage =[];
-    loginPage.push(<LoginScreen appContext={this} key={"login-screen"}/>);
-    this.setState({
-                  loginPage:loginPage
-                    })
-  }
-  render() {
-    return (
-      <div className="App">
-        {this.state.loginPage}
-        {this.state.uploadScreen}
-      </div>
+  render(){
+    return(
+      <Router>
+      <div className='App'>
+        <h1>Online Coding Platform</h1>
+     <Route exact path = "/" component={Start}/>
+     <Route exact path="/login" component={LoginScreen}/>
+     <Route exact path="/signup" component={Register}/>
+     <Route exact path = "/home" component={HomePage}/>
+   </div>
+   </Router>
     );
   }
 }
