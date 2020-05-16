@@ -9,6 +9,8 @@ import HomePage from './HomePage';
 import Start from './Start';
 import { green100 } from 'material-ui/styles/colors';
 import { red100 } from 'material-ui/styles/colors';
+import solutionPage from './SolutionPage';
+import ProblemsPage from './ProblemsPage';
 class App extends Component {
   constructor(props){
     super(props);
@@ -26,6 +28,8 @@ class App extends Component {
      <Route exact path="/login" component={LoginScreen}/>
      <Route exact path="/signup" component={Register}/>
      <Route exact path = "/home" component={HomePage}/>
+     <Route exact path = "/solution" component={solutionPage}/>
+     <Route exact path = "/problems" component={ProblemsPage}/>
    </div>
    </Router>
     );
