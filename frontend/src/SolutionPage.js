@@ -59,7 +59,7 @@ padding:30px 30px 0px 0px;
       "answer":this.state.code
     }
     console.log(solution)
-    Axios.post(`http://localhost:8080/problems/1`,solution)
+    Axios.post(`http://localhost:8080/problems/2`,solution)
     .then(responce=>{console.log(responce)})
     .catch(error=>console.log(error))
   }

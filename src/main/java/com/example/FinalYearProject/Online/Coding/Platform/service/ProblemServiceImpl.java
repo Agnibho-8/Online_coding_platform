@@ -20,4 +20,10 @@ public class ProblemServiceImpl implements ProblemsService {
     public List<Problems> findAll() {
         return dao.findAll();
     }
+
+    @Override
+    public int findPointsByProblemId(int id) {
+        System.out.println("sds"+id);
+        return dao.findPointsByProblemId(id);
+    }
 }

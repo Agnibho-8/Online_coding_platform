@@ -11,9 +11,6 @@ public class UserDetails {
     int levelsCleared;
     int totalPoints;
     String assessment;
-    @OneToOne
-    @JoinColumn(name="problemId",insertable = false,updatable = false)
-    User userObj;
 
     public void setUsername(String username) {
         this.username = username;
@@ -31,9 +28,6 @@ public class UserDetails {
         this.assessment = assessment;
     }
 
-    public void setUserObj(User userObj) {
-        this.userObj = userObj;
-    }
 
     public String getUsername() {
         return username;
@@ -51,18 +45,14 @@ public class UserDetails {
         return assessment;
     }
 
-    public User getUserObj() {
-        return userObj;
-    }
 
     public UserDetails() {
     }
 
-    public UserDetails(String username, int levelsCleared, int totalPoints, String assessment, User userObj) {
+    public UserDetails(String username, int levelsCleared, int totalPoints, String assessment) {
         this.username = username;
         this.levelsCleared = levelsCleared;
         this.totalPoints = totalPoints;
         this.assessment = assessment;
-        this.userObj = userObj;
     }
 }

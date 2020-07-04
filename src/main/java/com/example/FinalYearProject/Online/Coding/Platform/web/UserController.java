@@ -2,6 +2,7 @@ package com.example.FinalYearProject.Online.Coding.Platform.web;
 
 import com.example.FinalYearProject.Online.Coding.Platform.ModelResponse.UserLoginRequest;
 import com.example.FinalYearProject.Online.Coding.Platform.domain.User;
+import com.example.FinalYearProject.Online.Coding.Platform.service.UserDetailsService;
 import com.example.FinalYearProject.Online.Coding.Platform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,13 +20,19 @@ import java.util.Optional;
 public class UserController  {
    @Autowired
     UserService service;
+   @Autowired
+   UserDetailsService userDetailsService;
+   @Autowired
+   UserOperations userOperations;
    @CrossOrigin
     @PostMapping("/signup")
     public ResponseEntity<User> addUser(@RequestBody User toBeAdded){
         System.out.println("Sign Up Initiated!!!");
         String username = service.addNewUser(toBeAdded);
+        userDetailsService.addNewUser(username,toBeAdded);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create("/users/username"));
+        userOperations.addUserProblemID(username);
         System.out.println("Sign Up Done!!!");
         return new ResponseEntity<User>(toBeAdded,headers, HttpStatus.CREATED);
     }
@@ -40,10 +47,10 @@ public class UserController  {
         if(userLoginRequest.getPassword().equals(password)){
        HttpHeaders headers = new HttpHeaders();
        headers.setLocation(URI.create("/users/"+username));
+       userOperations.setCurrentUsername(username);
         System.out.println("Log In Done!!");
        return new ResponseEntity<String>("yes",headers,HttpStatus.OK);}
         else
             return new ResponseEntity<String>("no",HttpStatus.OK);
-
 }
 }

@@ -18,10 +18,12 @@ import java.util.Optional;
 public class ProblemsController {
     @Autowired
     ProblemsService service;
-
+    @Autowired
+    UserOperations userOperations;
     @CrossOrigin
     @GetMapping("/problems")
     public ResponseEntity<List<Problems>> getAllProblems() {
+        System.out.println("problems GET request");
         return new ResponseEntity<List<Problems>>(service.findAll(),HttpStatus.OK);
     }
 
@@ -35,6 +37,7 @@ public class ProblemsController {
     @PostMapping(path = "/problems/{id}")
     public ResponseEntity<String> getSubmission(@RequestBody UserSubmissionRequest userSubmissionRequest, @PathVariable("id") int id) throws IOException {
         // Make a file tempid.lang to store the code submitted by user
+        System.out.println("***************"+userSubmissionRequest.getAnswer()+userSubmissionRequest.getLanguage());
                 String filename = "Solution";
                 String extension = userSubmissionRequest.getLanguage();
                 if(extension.equalsIgnoreCase("python")){
@@ -89,6 +92,7 @@ public class ProblemsController {
         }
         //check if two lists are same
         if(expectedOutput.equals(userOutput)){
+                  userOperations.increasePoint(id);
                 return new ResponseEntity<>("Congratulations!",HttpStatus.OK);
         }
         else{
