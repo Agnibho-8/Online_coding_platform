@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link, Redirect, NavLink } from "react-router-dom";
 
+import "./ProblemsPage.css";
+
 export class ProblemsPage extends Component {
   constructor(props) {
     super(props);
@@ -41,19 +43,23 @@ export class ProblemsPage extends Component {
   Shodata = () => {
     var data = this.state.problemId.map((problem) => {
       return (
-        <NavLink
-          to={{
-            pathname: "/solution",
-            state: { problemID: problem.problemId },
-          }}
-        >
-          <div onClick={this.onClick}>
-            <h3>{problem.problemStatement}</h3>
-            <div>
-              {problem.difficultyLevel}, Maximum points: {problem.pointsAlotted}
+        <div className="problems32">
+          <NavLink
+            to={{
+              pathname: "/solution",
+              state: { problemID: problem.problemId },
+            }}
+          >
+            <div onClick={this.onClick}>
+              <h3 className="statement">{problem.problemStatement}</h3>
+              <div>
+                <span className="diffLevel">{problem.difficultyLevel}</span>,
+                Maximum points:{" "}
+                <span className="score">{problem.pointsAlotted}</span>
+              </div>
             </div>
-          </div>
-        </NavLink>
+          </NavLink>
+        </div>
       );
     });
     return data;
@@ -62,7 +68,7 @@ export class ProblemsPage extends Component {
   render() {
     var data = this.Shodata();
     return (
-      <div>
+      <div className="problemsContainer">
         <div>{data}</div>
       </div>
     );
