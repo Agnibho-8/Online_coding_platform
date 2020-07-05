@@ -1,0 +1,31 @@
+.homeContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.cover {
+  height: 100%;
+  width: 100%;
+  background: url("https://cdn1.vectorstock.com/i/1000x1000/85/30/coding-neon-sign-pc-monitor-with-programming-neon-vector-22428530.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+}
+
+.homeHeader {
+  color: white;
+  padding-top: 380px;
+  font-size: 1.8em;
+}
+
+.problemList {
+  position: absolute;
+  color: white;
+  top: 0;
+  right: 0;
+  margin: 15px;
+}

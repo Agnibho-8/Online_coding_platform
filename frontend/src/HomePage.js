@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
+
+import "./HomePage.css";
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -10,12 +13,14 @@ class HomePage extends Component {
   };*/
   render() {
     return (
-      <div>
-        <h1>HOME</h1>
-        <img src="https://cdn1.vectorstock.com/i/1000x1000/85/30/coding-neon-sign-pc-monitor-with-programming-neon-vector-22428530.jpg" />
-        <span className="input-group-btn">
-          <Link to="/problems">Problems</Link>
-        </span>
+      <div className="homeContainer">
+        <div className="cover">
+          <p className="homeHeader">Practice makes you perfect!</p>
+          {/* for changing problems button */}
+          <span className="input-group-btn problemList">
+            <Link to="/problems">Problems</Link>
+          </span>
+        </div>
       </div>
     );
   }
